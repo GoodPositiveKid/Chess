@@ -19,6 +19,6 @@ class King(Piece):
     def __init__(self,color,game,x,y,board):
         super().__init__(game, x, y, board, color)
         if (color == "Black"):
-            self.image = self.spritesheet.image(70,70,85,85,(255,255,255))
+            self.image = self.spritesheet.image(70,72,85,85,(255,255,255))
         else:
-            self.image = self.spritesheet.image(70,200,85,100,(255,255,255))
+            self.image = self.spritesheet.image(70,215,85,85,(255,255,255))

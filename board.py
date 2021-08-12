@@ -28,7 +28,7 @@ class Square(Sprite):
         self.y = y
         self.color = (255,255,255)
         if ((self.gridx+self.gridy*9)%2==1):
-            self.color = (0,0,0)
+            self.color = (0,100,0)
         self.game = game
         self.rect = pygame.Rect(x,y,10,10)
     def blitme(self):

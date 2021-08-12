@@ -14,7 +14,7 @@ class Game:
         self.width, self.height = self.screen.get_size()
         pygame.display.set_caption("Chess")
         self.board.drawboard()
-        self.king = King("White",self,5,7,self.board)
+        self.king = King("Black",self,6,7,self.board)
     def run(self):
         while 1:
             for event in pygame.event.get():
