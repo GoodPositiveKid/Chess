@@ -21,4 +21,4 @@ class King(Piece):
         if (color == "Black"):
             self.image = self.spritesheet.image(70,70,85,85,(255,255,255))
         else:
-            self.image = self.spritesheet.image(70,200,85,215,(255,255,255))
+            self.image = self.spritesheet.image(70,200,85,100,(255,255,255))
