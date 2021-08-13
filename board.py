@@ -18,7 +18,7 @@ class Board:
         for i in self.squares.sprites():
                 i.blitme()
     def getxy(self,x,y):
-        return self.coordinates[y-1][x-1]
+        return self.coordinates[8-y][x-1]
 class Square(Sprite):
     """The class for a square"""
     def __init__(self,game,x,y,gridx,gridy):
