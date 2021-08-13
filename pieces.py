@@ -23,6 +23,7 @@ class King(Piece):
         else:
             self.image = self.spritesheet.image(70,215,85,85)
 class Queen(Piece):
+    """Class for a Queen"""
     def __init__(self, color, game, x,y, board):
         super().__init__(color,game, x, y, board)
         if (color == "Black"):
@@ -30,9 +31,34 @@ class Queen(Piece):
         else:
             self.image = self.spritesheet.image(233,215,85,85)
 class Rook(Piece):
+    """Class for a Rook"""
     def __init__(self, color, game, x, y, board):
         super().__init__(color, game, x, y, board)
         if (color == "Black"):
             self.image = self.spritesheet.image(410,72,85,85)
         else:
             self.image = self.spritesheet.image(410,215,85,85)
+class Bishop(Piece):
+    """Class for a Bishop"""
+    def __init__(self, color, game, x, y, board):
+        super().__init__(color, game, x, y, board)
+        if (color == "Black"):
+            self.image = self.spritesheet.image(575,72,85,85)
+        else:
+            self.image = self.spritesheet.image(575,215,85,85)
+class Knight(Piece):
+    """Class for a Knight"""
+    def __init__(self, color, game, x, y, board):
+        super().__init__(color, game, x, y, board)
+        if (color == "Black"):
+            self.image = self.spritesheet.image(740,72,85,85)
+        else:
+            self.image = self.spritesheet.image(740,215,85,85)
+class Pawn(Piece):
+    """Class for a Pawn"""
+    def __init__(self, color, game, x, y, board):
+        super().__init__(color, game, x, y, board)
+        if (color == "Black"):
+            self.image = self.spritesheet.image(910,72,85,85)
+        else:
+            self.image = self.spritesheet.image(910,215,85,85)

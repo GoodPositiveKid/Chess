@@ -14,7 +14,7 @@ class Game:
         self.width, self.height = self.screen.get_size()
         pygame.display.set_caption("Chess")
         self.board.drawboard()
-        self.king = Rook("White",self,6,7,self.board)
+        self.piece = Pawn("White",self,7,1,self.board)
     def run(self):
         while 1:
             for event in pygame.event.get():
@@ -22,7 +22,7 @@ class Game:
                     sys.exit()
             self.screen.fill([100,100,100])
             self.board.blitboard()
-            self.king.blitme()
+            self.piece.blitme()
             pygame.display.flip()
 if __name__ == '__main__':
     game = Game()
