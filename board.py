@@ -12,12 +12,15 @@ class Board:
             for i in range(0,8):
                 temp = Square(self.game,self.game.width *(1/8) + self.game.width*(3/32)*i,self.game.width *(1/8) + self.game.width*(3/32)*j,i,j)
                 self.squares.add(temp)
-                self.coordinates[j].append([temp.rect.centerx,temp.rect.centery])
+                self.coordinates[j].append(temp)
     def blitboard(self):
         self.squares.update()
         for i in self.squares.sprites():
                 i.blitme()
     def getxy(self,x,y):
+        square = self.coordinates[8-y][x-1]
+        return [square.rect.x,square.rect.y,square.piece]
+    def getsquare(self,x,y):
         return self.coordinates[8-y][x-1]
 class Square(Sprite):
     """The class for a square"""
@@ -26,6 +29,7 @@ class Square(Sprite):
         self.gridy = gridy
         self.x = x
         self.y = y
+        self.piece = None
         self.color = (255,255,255)
         if ((self.gridx+self.gridy*9)%2==1):
             self.color = (0,100,0)
@@ -34,3 +38,5 @@ class Square(Sprite):
     def blitme(self):
         self.rect = pygame.Rect(self.x,self.y,self.game.width*(3/32),self.game.width*(3/32))
         pygame.draw.rect(self.game.screen,self.color,self.rect)
+        if (self.piece):
+            self.piece.blitme()

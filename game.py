@@ -1,7 +1,7 @@
 import sys ,pygame,os
 import pathlib
 from board import Board
-from other import Spritesheet
+from other import *
 from pieces import *
 from pygame.sprite import Sprite
 class Game:
@@ -14,7 +14,7 @@ class Game:
         self.width, self.height = self.screen.get_size()
         pygame.display.set_caption("Chess")
         self.board.drawboard()
-        self.piece = Pawn("White",self,7,1,self.board)
+        self.piece = Pawn("White",self,1,2,self.board)
     def run(self):
         while 1:
             for event in pygame.event.get():
@@ -22,7 +22,6 @@ class Game:
                     sys.exit()
             self.screen.fill([100,100,100])
             self.board.blitboard()
-            self.piece.blitme()
             pygame.display.flip()
 if __name__ == '__main__':
     game = Game()
