@@ -1,6 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
-from other import Spritesheet
+from other import Spritesheet,Move
 class Piece(Sprite):
     """The base class for a chess piece"""
     def __init__(self, color, game, x,y, board):
@@ -15,11 +15,9 @@ class Piece(Sprite):
     def blitme(self):
         xy = self.board.getxy(self.gridx,self.gridy)
         self.game.screen.blit(self.image,pygame.Rect(xy[0],xy[1],50,50))
-    def move(self,x,y):
-        self.board.getsquare(self.gridx,self.gridy).piece = None
-        self.gridx = x
-        self.gridy = y
-        self.board.getsquare(self.gridx,self.gridy).piece = self
+    def generatemoves(self):
+        """Generates all the moves for a piece"""
+        pass
 class King(Piece):
     """Class for a king"""
     def __init__(self,color,game,x,y,board):
@@ -68,3 +66,14 @@ class Pawn(Piece):
             self.image = self.spritesheet.image(910,72,85,85)
         else:
             self.image = self.spritesheet.image(910,215,85,85)
+    def generatemoves(self):
+        if (self.color == "Black"):
+            if (self.gridy == 6):
+                return [Move(self,0,-1),Move(self,0,-2)]
+            else:
+                return [Move(self,0,-1)]
+        else:
+            if (self.gridy == 2):
+                return [Move(self,0,1),Move(self,0,2)]
+            else:
+                return [Move(self,0,1)]

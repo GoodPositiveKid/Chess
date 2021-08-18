@@ -1,6 +1,6 @@
 import sys ,pygame,os
 import pathlib
-from board import Board
+from board import *
 from other import *
 from pieces import *
 from pygame.sprite import Sprite
