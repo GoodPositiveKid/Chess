@@ -21,7 +21,7 @@ class Piece(Sprite):
 class King(Piece):
     """Class for a king"""
     def __init__(self,color,game,x,y,board):
-        super().__init__(game, x, y, board, color)
+        super().__init__(color,game, x, y, board)
         if (color == "Black"):
             self.image = self.spritesheet.image(70,72,85,85)
         else:
@@ -66,14 +66,3 @@ class Pawn(Piece):
             self.image = self.spritesheet.image(910,72,85,85)
         else:
             self.image = self.spritesheet.image(910,215,85,85)
-    def generatemoves(self):
-        if (self.color == "Black"):
-            if (self.gridy == 6):
-                return [Move(self,0,-1),Move(self,0,-2)]
-            else:
-                return [Move(self,0,-1)]
-        else:
-            if (self.gridy == 2):
-                return [Move(self,0,1),Move(self,0,2)]
-            else:
-                return [Move(self,0,1)]

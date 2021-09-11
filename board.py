@@ -1,11 +1,14 @@
 import sys ,pygame,os
 from pygame.sprite import Sprite
+from pieces import King
+import io
 class Board:
     """Draws all the squares on the board"""
     def __init__(self,game):
         self.game = game
         self.squares = pygame.sprite.Group()
         self.coordinates = []
+        self.pieces = pygame.sprite.Group()
     def drawboard(self):
         for j in range(0,8):
             self.coordinates.append([])
@@ -22,6 +25,23 @@ class Board:
         return [square.rect.x,square.rect.y,square.piece]
     def getsquare(self,x,y):
         return self.coordinates[8-y][x-1]
+    def fen(self,fen):
+        x = 1
+        y = 9
+        for row in fen.split('/'):
+            y -= 1
+            x =1
+            for c in row:
+                if c in '123456789':
+                    x += int(c)
+                else:
+                    if c.isupper():
+                        piece = King("White",self.game,x,y,self)
+                        self.pieces.add(piece)
+                    else:
+                        piece = King("Black",self.game,x,y,self)
+                        self.pieces.add(piece)
+                    x+=1
 class Square(Sprite):
     """The class for a square"""
     def __init__(self,game,x,y,gridx,gridy):

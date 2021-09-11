@@ -14,7 +14,7 @@ class Game:
         self.width, self.height = self.screen.get_size()
         pygame.display.set_caption("Chess")
         self.board.drawboard()
-        self.piece = Pawn("White",self,1,2,self.board)
+        self.board.fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
     def run(self):
         while 1:
             for event in pygame.event.get():
