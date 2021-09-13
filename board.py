@@ -1,7 +1,6 @@
 import sys ,pygame,os
 from pygame.sprite import Sprite
-from pieces import King
-import io
+from pieces import *
 class Board:
     """Draws all the squares on the board"""
     def __init__(self,game):
@@ -36,10 +35,26 @@ class Board:
                     x += int(c)
                 else:
                     if c.isupper():
-                        piece = King("White",self.game,x,y,self)
+                        color = "White"
+                    else:
+                        color = "Black"
+                    if c.lower() == "k":
+                        piece = King(color,self.game,x,y,self)
+                        self.pieces.add(piece)
+                    elif c.lower() == "r":
+                        piece = Rook(color,self.game,x,y,self)
+                        self.pieces.add(piece)
+                    elif c.lower() == "n":
+                        piece = Knight(color,self.game,x,y,self)
+                        self.pieces.add(piece)
+                    elif c.lower() == "b":
+                        piece = Bishop(color,self.game,x,y,self)
+                        self.pieces.add(piece)
+                    elif c.lower() == "q":
+                        piece = Queen(color,self.game,x,y,self)
                         self.pieces.add(piece)
                     else:
-                        piece = King("Black",self.game,x,y,self)
+                        piece = Pawn(color,self.game,x,y,self)
                         self.pieces.add(piece)
                     x+=1
 class Square(Sprite):
