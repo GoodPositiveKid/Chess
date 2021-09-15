@@ -12,12 +12,10 @@ class Piece(Sprite):
         self.spritesheet = Spritesheet("images/chess_pieces.bmp")
         self.color = color
         self.board.getsquare(self.gridx,self.gridy).piece = self
+        self.selected = False
     def blitme(self):
         xy = self.board.getxy(self.gridx,self.gridy)
         self.game.screen.blit(self.image,pygame.Rect(xy[0],xy[1],50,50))
-    def generatemoves(self):
-        """Generates all the moves for a piece"""
-        pass
 class King(Piece):
     """Class for a king"""
     def __init__(self,color,game,x,y,board):
