@@ -75,10 +75,12 @@ class Square(Sprite):
         self.rect = pygame.Rect(self.x,self.y,self.game.width*(3/32),self.game.width*(3/32))
         if (self.isclicked() > 1):
             self.clicked = True
-            self.piece.selected = True
+            if self.piece:
+                self.piece.selected = True
         if (pygame.mouse.get_pressed()[0] and not self.rect.collidepoint(pygame.mouse.get_pos())):
             self.clicked = False
-            self.piece.selected = False
+            if self.piece:
+                self.piece.selected = False
         if (self.clicked):
             pygame.draw.rect(self.game.screen,(139, 128, 0),self.rect)
         else:
