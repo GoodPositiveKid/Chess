@@ -1,6 +1,7 @@
 import sys ,pygame,os
 from pygame.sprite import Sprite
 from pieces import *
+from other import Move
 class Board:
     """Draws all the squares on the board"""
     def __init__(self,game):
@@ -8,11 +9,12 @@ class Board:
         self.squares = pygame.sprite.Group()
         self.coordinates = []
         self.pieces = pygame.sprite.Group()
+        self.selectedpiece = None
     def drawboard(self):
         for j in range(0,8):
             self.coordinates.append([])
             for i in range(0,8):
-                temp = Square(self.game,self.game.width *(1/8) + self.game.width*(3/32)*i,self.game.width *(1/8) + self.game.width*(3/32)*j,i,j)
+                temp = Square(self.game,self.game.width *(1/8) + self.game.width*(3/32)*i,self.game.width *(1/8) + self.game.width*(3/32)*j,i,j,self)
                 self.squares.add(temp)
                 self.coordinates[j].append(temp)
     def blitboard(self):
@@ -59,7 +61,8 @@ class Board:
                     x+=1
 class Square(Sprite):
     """The class for a square"""
-    def __init__(self,game,x,y,gridx,gridy):
+    def __init__(self,game,x,y,gridx,gridy,board):
+        self.board = board
         self.gridx = gridx
         self.gridy = gridy
         self.x = x
@@ -83,6 +86,11 @@ class Square(Sprite):
                 self.piece.selected = False
         if (self.clicked):
             pygame.draw.rect(self.game.screen,(139, 128, 0),self.rect)
+            if (self.piece):
+                self.board.selectedpiece = self.piece
+            else:
+                move = Move(self.board.selectedpiece,self.gridx+1,8-self.gridy)
+                move.move()
         else:
             pygame.draw.rect(self.game.screen,self.color,self.rect)
         if (self.piece):

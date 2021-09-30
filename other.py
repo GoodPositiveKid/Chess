@@ -11,10 +11,10 @@ class Spritesheet:
         image.set_colorkey((255,255,255))
         return image
 class Move:
-    def __init__(self,piece,addx,addy):
+    def __init__(self,piece,x,y):
         self.piece = piece
-        self.to_x = self.piece.gridx + addx
-        self.to_y = self.piece.gridy + addy
+        self.to_x = x
+        self.to_y = y
         self.board = piece.board
     def move(self):
         self.board.getsquare(self.piece.gridx,self.piece.gridy).piece = None
