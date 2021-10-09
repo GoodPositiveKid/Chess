@@ -10,6 +10,7 @@ class Board:
         self.coordinates = []
         self.pieces = pygame.sprite.Group()
         self.selectedpiece = None
+        self.move = "White"
     def drawboard(self):
         for j in range(0,8):
             self.coordinates.append([])

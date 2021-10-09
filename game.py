@@ -15,6 +15,8 @@ class Game:
         pygame.display.set_caption("Chess")
         self.board.drawboard()
         self.board.fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
+        self.king = King("White",self,4,4,self.board)
+        print(len(self.king.makemoves()))
     def run(self):
         while 1:
             for event in pygame.event.get():

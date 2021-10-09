@@ -13,9 +13,20 @@ class Piece(Sprite):
         self.color = color
         self.board.getsquare(self.gridx,self.gridy).piece = self
         self.selected = False
+        self.moves = []
     def blitme(self):
         xy = self.board.getxy(self.gridx,self.gridy)
         self.game.screen.blit(self.image,pygame.Rect(xy[0],xy[1],50,50))
+    def addmove(self,x,y,typeof="both"):
+        thepiece = self.board.getsquare(x,y).piece
+        if (typeof=="move"and thepiece == None):
+            self.moves.append(Move(self,x,y))
+        if (typeof=="capture"and thepiece != None):
+            if thepiece.color != thepiece.color:
+                self.moves.append(Move(self,x,y))
+        else:
+            if (thepiece == None or thepiece.color != self.color):
+                self.moves.append(Move(self,x,y))             
 class King(Piece):
     """Class for a king"""
     def __init__(self,color,game,x,y,board):
