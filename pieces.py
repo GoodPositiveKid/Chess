@@ -17,16 +17,22 @@ class Piece(Sprite):
     def blitme(self):
         xy = self.board.getxy(self.gridx,self.gridy)
         self.game.screen.blit(self.image,pygame.Rect(xy[0],xy[1],50,50))
-    def addmove(self,x,y,typeof="both"):
-        thepiece = self.board.getsquare(x,y).piece
+    def addmove(self,addx,addy,typeof="both"):
+        thepiece = self.board.getsquare(self.gridx+addx,self.gridy + addy).piece
         if (typeof=="move"and thepiece == None):
-            self.moves.append(Move(self,x,y))
+            self.moves.append(Move(self,self.gridx+addx,self.gridy+addy))
         if (typeof=="capture"and thepiece != None):
             if thepiece.color != thepiece.color:
-                self.moves.append(Move(self,x,y))
+                self.moves.append(Move(self,self.gridx+addx,self.gridy+addy))
         else:
             if (thepiece == None or thepiece.color != self.color):
-                self.moves.append(Move(self,x,y))             
+                self.moves.append(Move(self,self.gridx+addx,self.gridy+addy))  
+    def addmoves(self,list):
+        for i in list:
+            if (len(i) == 3):
+                self.addmove(i[0],i[1],i[2])
+            else:
+                self.addmove(i[0],i[1])
 class King(Piece):
     """Class for a king"""
     def __init__(self,color,game,x,y,board):
@@ -35,6 +41,9 @@ class King(Piece):
             self.image = self.spritesheet.image(70,72,85,85)
         else:
             self.image = self.spritesheet.image(70,215,85,85)
+    def makemoves(self):
+        self.addmoves([[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0]])
+        return self.moves
 class Queen(Piece):
     """Class for a Queen"""
     def __init__(self, color, game, x,y, board):
