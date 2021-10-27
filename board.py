@@ -70,28 +70,15 @@ class Square(Sprite):
         self.y = y
         self.piece = None
         self.color = (255,255,255)
-        self.clicked = False
+        self.selected = False
         if ((self.gridx+self.gridy*9)%2==1):
             self.color = (0,100,0)
         self.game = game
         self.rect = pygame.Rect(x,y,10,10)
     def blitme(self):
         self.rect = pygame.Rect(self.x,self.y,self.game.width*(3/32),self.game.width*(3/32))
-        if (self.isclicked() > 1):
-            self.clicked = True
-            if self.piece:
-                self.piece.selected = True
-        if (pygame.mouse.get_pressed()[0] and not self.rect.collidepoint(pygame.mouse.get_pos())):
-            self.clicked = False
-            if self.piece:
-                self.piece.selected = False
-        if (self.clicked):
+        if (self.selected):
             pygame.draw.rect(self.game.screen,(139, 128, 0),self.rect)
-            if (self.piece):
-                self.board.selectedpiece = self.piece
-            else:
-                move = Move(self.board.selectedpiece,self.gridx+1,8-self.gridy)
-                move.move()
         else:
             pygame.draw.rect(self.game.screen,self.color,self.rect)
         if (self.piece):
