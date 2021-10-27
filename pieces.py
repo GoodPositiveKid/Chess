@@ -18,6 +18,8 @@ class Piece(Sprite):
         xy = self.board.getxy(self.gridx,self.gridy)
         self.game.screen.blit(self.image,pygame.Rect(xy[0],xy[1],50,50))
     def addmove(self,addx,addy,typeof="both"):
+        if (self.gridx+addx <= 0 or self.gridx + addx >= 9) or (self.gridy+addy <= 0 or self.gridy + addy >= 9):
+            return
         thepiece = self.board.getsquare(self.gridx+addx,self.gridy + addy).piece
         if (typeof=="move"and thepiece == None):
             self.moves.append(Move(self,self.gridx+addx,self.gridy+addy))
