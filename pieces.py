@@ -35,6 +35,9 @@ class Piece(Sprite):
                 self.addmove(i[0],i[1],i[2])
             else:
                 self.addmove(i[0],i[1])
+    def light(self):
+        for i in self.moves:
+            i.light()
 class King(Piece):
     """Class for a king"""
     def __init__(self,color,game,x,y,board):

@@ -16,8 +16,15 @@ class Move:
         self.to_x = x
         self.to_y = y
         self.board = piece.board
+        self.square = self.board.getsquare(self.piece.gridx,self.piece.gridy)
+        self.to_square = self.board.getsquare(self.to_x,self.to_y)
     def move(self):
-        self.board.getsquare(self.piece.gridx,self.piece.gridy).piece = None
+        self.square.piece = None
         self.piece.gridx = self.to_x
         self.piece.gridy = self.to_y
-        self.board.getsquare(self.piece.gridx,self.piece.gridy).piece = self.piece
+        self.square.piece = self.piece
+    def light(self):
+        if self.to_square.selected == True:
+            self.to_square.selected = False
+        else:
+            self.to_square.selected = True
