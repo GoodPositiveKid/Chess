@@ -17,7 +17,7 @@ class Piece(Sprite):
     def blitme(self):
         xy = self.board.getxy(self.gridx,self.gridy)
         self.game.screen.blit(self.image,pygame.Rect(xy[0],xy[1],50,50))
-    def addmove(self,addx,addy,typeof="both"):
+    def addmove(self,addx,addy,typeof="both",continues = False):
         if (self.gridx+addx <= 0 or self.gridx + addx >= 9) or (self.gridy+addy <= 0 or self.gridy + addy >= 9):
             return
         thepiece = self.board.getsquare(self.gridx+addx,self.gridy + addy).piece
@@ -28,11 +28,18 @@ class Piece(Sprite):
                 self.moves.append(Move(self,self.gridx+addx,self.gridy+addy))
         else:
             if (thepiece == None or thepiece.color != self.color):
-                self.moves.append(Move(self,self.gridx+addx,self.gridy+addy))  
+                self.moves.append(Move(self,self.gridx+addx,self.gridy+addy))
+        if (continues and """ 
+        Some code that checks if you can't move in that direction anymore
+        For example, if it is blocked.
+        """):
+            self.addmove(addx*2,addy*2,typeof, True)
     def addmoves(self,list):
         for i in list:
             if (len(i) == 3):
                 self.addmove(i[0],i[1],i[2])
+            elif (len(i) == 4):
+                self.addmove(i[0],i[1],i[2],i[3])
             else:
                 self.addmove(i[0],i[1])
     def light(self):
