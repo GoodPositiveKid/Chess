@@ -29,11 +29,22 @@ class Piece(Sprite):
         else:
             if (thepiece == None or thepiece.color != self.color):
                 self.moves.append(Move(self,self.gridx+addx,self.gridy+addy))
-        if (continues and """ 
-        Some code that checks if you can't move in that direction anymore
-        For example, if it is blocked.
-        """):
-            self.addmove(addx*2,addy*2,typeof, True)
+        if (continues and not typeof == "capture" and not (typeof == "both" and thepiece != None and thepiece.color != self.color)):
+            i = 2
+            while 1:
+                if (((self.gridx + i*addx) > 8 or (self.gridx + i*addx) < 1) or 
+                (self.gridy + i*addy) > 8 or (self.gridy + i * addy) < 1):
+                    break
+                thepiece = self.board.getsquare(self.gridx + i*addx, self.gridy + i*addy).piece
+                if (typeof == "both" and thepiece != None and thepiece.color != self.color):
+                    self.moves.append(Move(self,self.gridx+i*addx,self.gridy + i*addy))
+                    break
+                if (typeof == "both" and thepiece != None and thepiece.color == self.color):
+                    break
+                if (typeof == "move" and thepiece != None):
+                    break
+                self.moves.append(Move(self,self.gridx + i*addx, self.gridy + i*addy))
+                i += 1
     def addmoves(self,list):
         for i in list:
             if (len(i) == 3):
@@ -64,6 +75,10 @@ class Queen(Piece):
             self.image = self.spritesheet.image(233,72,85,85)
         else:
             self.image = self.spritesheet.image(233,215,85,85)
+    def makemoves(self):
+        self.addmoves([[1,0,"both",True],[1,-1,"both",True],
+        [0,-1,"both",True],[-1,-1,"both",True],[-1,0,"both",True],
+        [-1,1,"both",True],[0,1,"both",True],[1,1,"both",True]])
 class Rook(Piece):
     """Class for a Rook"""
     def __init__(self, color, game, x, y, board):
