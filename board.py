@@ -4,7 +4,9 @@ from pieces import *
 from other import Move
 class Board:
     """Draws all the squares on the board"""
-    def __init__(self,game):
+    def __init__(self,game,x=0,y=0):
+        self.x = x
+        self.y = y
         self.game = game
         self.squares = pygame.sprite.Group()
         self.coordinates = []
@@ -15,7 +17,8 @@ class Board:
         for j in range(0,8):
             self.coordinates.append([])
             for i in range(0,8):
-                temp = Square(self.game,self.game.width *(1/8) + self.game.width*(3/32)*i,self.game.width *(1/8) + self.game.width*(3/32)*j,i,j,self)
+                temp = Square(self.game,self.game.width *(1/8) + self.game.width*(3/32)*i +self.x
+                ,self.game.width *(1/8) + self.game.width*(3/32)*j - self.y ,i,j,self)
                 self.squares.add(temp)
                 self.coordinates[j].append(temp)
     def blitboard(self):
