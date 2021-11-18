@@ -23,11 +23,15 @@ class Piece(Sprite):
         thepiece = self.board.getsquare(self.gridx+addx,self.gridy + addy).piece
         if (typeof=="move"and thepiece == None):
             self.moves.append(Move(self,self.gridx+addx,self.gridy+addy))
-        if (typeof=="capture"and thepiece != None):
-            if thepiece.color != thepiece.color:
+        if (typeof == "both" and thepiece != None and thepiece.color == self.color):
+            return
+        if (typeof == "capture" and thepiece == None):
+            return
+        if (typeof=="capture" and thepiece != None):
+            if thepiece.color != self.color:
                 self.moves.append(Move(self,self.gridx+addx,self.gridy+addy))
         else:
-            if (thepiece == None or thepiece.color != self.color):
+            if (typeof == "both" and thepiece == None or typeof == "both" and thepiece.color != self.color):
                 self.moves.append(Move(self,self.gridx+addx,self.gridy+addy))
         if (continues and not typeof == "capture" and not (typeof == "both" and thepiece != None and thepiece.color != self.color)):
             i = 2
@@ -39,23 +43,27 @@ class Piece(Sprite):
                 if (typeof == "both" and thepiece != None and thepiece.color != self.color):
                     self.moves.append(Move(self,self.gridx+i*addx,self.gridy + i*addy))
                     break
-                if (typeof == "both" and thepiece != None and thepiece.color == self.color):
+                    return
+                if (thepiece != None and thepiece.color == self.color):
                     break
+                    return
                 if (typeof == "move" and thepiece != None):
                     break
+                    return
                 self.moves.append(Move(self,self.gridx + i*addx, self.gridy + i*addy))
                 i += 1
-    def addmoves(self,list):
-        for i in list:
+        return
+    def addmoves(self,l):
+        for i in l:
             if (len(i) == 3):
-                self.addmove(i[0],i[1],i[2])
+                self.addmove(i[0],i[1],typeof = i[2])
             elif (len(i) == 4):
-                self.addmove(i[0],i[1],i[2],i[3])
+                self.addmove(i[0],i[1],typeof = i[2],continues = i[3])
             else:
                 self.addmove(i[0],i[1])
-    def light(self):
+    def light(self,on):
         for i in self.moves:
-            i.light()
+            i.light(on)
 class King(Piece):
     """Class for a king"""
     def __init__(self,color,game,x,y,board):
@@ -87,6 +95,9 @@ class Rook(Piece):
             self.image = self.spritesheet.image(410,72,85,85)
         else:
             self.image = self.spritesheet.image(410,215,85,85)
+    def makemoves(self):
+        self.addmoves([[0,1,"both",True],[0,-1,"both",True],
+        [1,0,"both",True],[-1,0,"both",True]])
 class Bishop(Piece):
     """Class for a Bishop"""
     def __init__(self, color, game, x, y, board):
@@ -95,6 +106,10 @@ class Bishop(Piece):
             self.image = self.spritesheet.image(575,72,85,85)
         else:
             self.image = self.spritesheet.image(575,215,85,85)
+    def makemoves(self):
+        self.addmoves([
+            [1,1,"both",True],[1,-1,"both",True],[-1,1,"both",True],[-1,-1,"both",True]
+        ])
 class Knight(Piece):
     """Class for a Knight"""
     def __init__(self, color, game, x, y, board):
@@ -103,6 +118,10 @@ class Knight(Piece):
             self.image = self.spritesheet.image(740,72,85,85)
         else:
             self.image = self.spritesheet.image(740,215,85,85)
+    def makemoves(self):
+        self.addmoves([
+            [1,2],[-1,2],[-2,1],[-2,-1],[-1,-2],[1,-2],[2,-1],[2,1]
+        ])
 class Pawn(Piece):
     """Class for a Pawn"""
     def __init__(self, color, game, x, y, board):
@@ -111,3 +130,12 @@ class Pawn(Piece):
             self.image = self.spritesheet.image(910,72,85,85)
         else:
             self.image = self.spritesheet.image(910,215,85,85)
+    def makemoves(self):
+        if (self.color == "White"):
+            if (self.gridy == 2):
+                self.addmove(0,2,typeof = "move")
+            self.addmoves([[0,1,"move"],[-1,1,"capture"],[1,1,"capture"]])
+        if (self.color == "Black"):
+            if (self.gridy == 7):
+                self.addmove(0,-2,typeof = "move")
+            self.addmoves([[0,-1,"move"],[-1,-1,"capture"],[1,-1,"capture"]])

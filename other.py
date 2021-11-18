@@ -23,8 +23,8 @@ class Move:
         self.piece.gridx = self.to_x
         self.piece.gridy = self.to_y
         self.square.piece = self.piece
-    def light(self):
-        if self.to_square.selected == True:
-            self.to_square.selected = False
-        else:
+    def light(self,on):
+        if on:
             self.to_square.selected = True
+        else:
+            self.to_square.selected = False
