@@ -2,6 +2,7 @@ import sys ,pygame,os
 from pygame.sprite import Sprite
 from pieces import *
 from other import Move
+from math import sin, cos
 class Board:
     """Draws all the squares on the board"""
     def __init__(self,game,x=0,y=0):
@@ -13,12 +14,16 @@ class Board:
         self.pieces = pygame.sprite.Group()
         self.selectedpiece = None
         self.move = "White"
-    def drawboard(self):
+    def drawboard(self,angle = 180):
         for j in range(0,8):
             self.coordinates.append([])
             for i in range(0,8):
-                temp = Square(self.game,self.game.width *(1/8) + self.game.width*(3/32)*i +self.x
-                ,self.game.width *(1/8) + self.game.width*(3/32)*j - self.y ,i,j,self)
+                s_x = self.game.width *(1/8) + self.game.width*(3/32)*i
+                s_y = self.game.width *(1/8) + self.game.width*(3/32)*j
+                temp = Square(self.game,
+                ((s_x+self.x)),
+                ((s_y-self.y)),
+                 i, j, self)
                 self.squares.add(temp)
                 self.coordinates[j].append(temp)
     def blitboard(self):

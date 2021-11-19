@@ -11,12 +11,13 @@ class Piece(Sprite):
         self.image = None
         self.spritesheet = Spritesheet("images/chess_pieces.bmp")
         self.color = color
-        self.board.getsquare(self.gridx,self.gridy).piece = self
+        self.square = self.board.getsquare(self.gridx,self.gridy)
+        self.square.piece = self
         self.selected = False
         self.moves = []
+        self.xy = self.board.getxy(self.gridx,self.gridy)
     def blitme(self):
-        xy = self.board.getxy(self.gridx,self.gridy)
-        self.game.screen.blit(self.image,pygame.Rect(xy[0],xy[1],50,50))
+        self.game.screen.blit(self.image,pygame.Rect(self.xy[0],self.xy[1],50,50))
     def addmove(self,addx,addy,typeof="both",continues = False):
         if (self.gridx+addx <= 0 or self.gridx + addx >= 9) or (self.gridy+addy <= 0 or self.gridy + addy >= 9):
             return
