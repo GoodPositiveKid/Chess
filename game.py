@@ -15,8 +15,7 @@ class Game:
         pygame.display.set_caption("Chess")
         self.board.drawboard()
         self.board.fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
-        for piece in self.board.pieces.sprites():
-            piece.makemoves()
+        print(len(self.board.allmoves()))
     def run(self):
         while 1:
             for event in pygame.event.get():
@@ -24,8 +23,6 @@ class Game:
                     sys.exit()
             self.screen.fill([100,100,100])
             self.board.blitboard()
-            for piece in self.board.pieces.sprites():
-                piece.light(True)
             pygame.display.flip()
 if __name__ == '__main__':
     game = Game()

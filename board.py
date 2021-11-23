@@ -14,6 +14,9 @@ class Board:
         self.pieces = pygame.sprite.Group()
         self.selectedpiece = None
         self.move = "White"
+        self.whitemoves = []
+        self.blackmoves = []
+        self.moves = []
     def drawboard(self,angle = 180):
         for j in range(0,8):
             self.coordinates.append([])
@@ -68,6 +71,18 @@ class Board:
                         piece = Pawn(color,self.game,x,y,self)
                         self.pieces.add(piece)
                     x+=1
+    def allmoves(self):
+        for piece in self.pieces.sprites():
+            piece.makemoves()
+            if (piece.color == "Black"):
+                for move in piece.moves:
+                    self.blackmoves.append(move)
+                    self.moves.append(move)
+            else:
+                for moves in piece.moves:
+                    self.whitemoves.append(move)
+                    self.moves.append(move)
+        return self.moves
 class Square(Sprite):
     """The class for a square"""
     def __init__(self,game,x,y,gridx,gridy,board):

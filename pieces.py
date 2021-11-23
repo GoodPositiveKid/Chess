@@ -88,6 +88,7 @@ class Queen(Piece):
         self.addmoves([[1,0,"both",True],[1,-1,"both",True],
         [0,-1,"both",True],[-1,-1,"both",True],[-1,0,"both",True],
         [-1,1,"both",True],[0,1,"both",True],[1,1,"both",True]])
+        return self.moves
 class Rook(Piece):
     """Class for a Rook"""
     def __init__(self, color, game, x, y, board):
@@ -99,6 +100,7 @@ class Rook(Piece):
     def makemoves(self):
         self.addmoves([[0,1,"both",True],[0,-1,"both",True],
         [1,0,"both",True],[-1,0,"both",True]])
+        return self.moves
 class Bishop(Piece):
     """Class for a Bishop"""
     def __init__(self, color, game, x, y, board):
@@ -111,6 +113,7 @@ class Bishop(Piece):
         self.addmoves([
             [1,1,"both",True],[1,-1,"both",True],[-1,1,"both",True],[-1,-1,"both",True]
         ])
+        return self.moves
 class Knight(Piece):
     """Class for a Knight"""
     def __init__(self, color, game, x, y, board):
@@ -123,6 +126,7 @@ class Knight(Piece):
         self.addmoves([
             [1,2],[-1,2],[-2,1],[-2,-1],[-1,-2],[1,-2],[2,-1],[2,1]
         ])
+        return self.moves
 class Pawn(Piece):
     """Class for a Pawn"""
     def __init__(self, color, game, x, y, board):
@@ -140,3 +144,4 @@ class Pawn(Piece):
             if (self.gridy == 7):
                 self.addmove(0,-2,typeof = "move")
             self.addmoves([[0,-1,"move"],[-1,-1,"capture"],[1,-1,"capture"]])
+        return self.moves
