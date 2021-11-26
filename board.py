@@ -83,6 +83,10 @@ class Board:
                     self.whitemoves.append(move)
                     self.moves.append(move)
         return self.moves
+    def update(self):
+        for piece in self.pieces.sprites():
+            piece.update()
+
 class Square(Sprite):
     """The class for a square"""
     def __init__(self,game,x,y,gridx,gridy,board):
@@ -98,18 +102,19 @@ class Square(Sprite):
             self.color = (0,100,0)
         self.game = game
         self.rect = pygame.Rect(x,y,10,10)
+        self.lighted = False
     def blitme(self):
         self.rect = pygame.Rect(self.x,self.y,self.game.width*(3/32),self.game.width*(3/32))
-        if (self.selected):
+        if (self.lighted or self.selected):
             pygame.draw.rect(self.game.screen,(139, 128, 0),self.rect)
         else:
             pygame.draw.rect(self.game.screen,self.color,self.rect)
         if (self.piece):
             self.piece.blitme()
-    def isclicked(self):
-        if pygame.mouse.get_pressed()[0] and self.rect.collidepoint(pygame.mouse.get_pos()):
-            return 2
-        elif self.rect.collidepoint(pygame.mouse.get_pos()):
-            return 1
-        else:
-            return 0
+        if (pygame.mouse.get_pressed()[0] and self.piece != None):
+            if (self.rect.collidepoint(pygame.mouse.get_pos())):
+                self.selected = True
+                self.piece.selected = True
+            else:
+                self.selected = False
+                self.piece.selected = False

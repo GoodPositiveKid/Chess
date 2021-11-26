@@ -65,6 +65,14 @@ class Piece(Sprite):
     def light(self,on):
         for i in self.moves:
             i.light(on)
+    def update(self):
+        if (self.selected and self.board.move == self.color):
+            self.makemoves()
+            self.light(True)
+        else:
+            self.makemoves()
+            self.light(False)
+            
 class King(Piece):
     """Class for a king"""
     def __init__(self,color,game,x,y,board):

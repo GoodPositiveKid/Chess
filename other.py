@@ -25,6 +25,6 @@ class Move:
         self.square.piece = self.piece
     def light(self,on):
         if on:
-            self.to_square.selected = True
+            self.to_square.lighted = True
         else:
-            self.to_square.selected = False
+            self.to_square.lighted = False
