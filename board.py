@@ -111,10 +111,17 @@ class Square(Sprite):
             pygame.draw.rect(self.game.screen,self.color,self.rect)
         if (self.piece):
             self.piece.blitme()
-        if (pygame.mouse.get_pressed()[0] and self.piece != None):
+        if (pygame.mouse.get_pressed()[0]):
             if (self.rect.collidepoint(pygame.mouse.get_pos())):
-                self.selected = True
-                self.piece.selected = True
+                if self.piece != None:
+                    self.selected = True
+                    self.piece.selected = True
+                    self.board.selectedpiece = self.piece
+                else:
+                    if self.lighted:
+                        move = Move(self.board.selectedpiece,self.gridx,self.gridy)
+                        move.move()
             else:
                 self.selected = False
-                self.piece.selected = False
+                if (self.piece):
+                    self.piece.selected = False
