@@ -21,7 +21,7 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-            self.screen.fill([100,100,100])
+            self.screen.fill([0,12,24])
             self.board.blitboard()
             self.board.update()
             pygame.display.flip()
